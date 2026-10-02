@@ -20,6 +20,8 @@ node build-page.mjs
 
 El generador actualiza `dist/index.html`. CSS, JavaScript e imágenes se conservan dentro del repositorio. La composición actual está diseñada para cuatro empresas; cambiar su cantidad requiere adaptar los contadores y la navegación.
 
+La página incluye una versión de sus estilos y navegación en cada generación para que el navegador reciba las correcciones sin reutilizar esos archivos de una versión anterior.
+
 Para una vista previa local, ejecutar desde la carpeta del repositorio:
 
 ```sh
@@ -32,7 +34,9 @@ Abrir `http://localhost:8080` en el navegador.
 
 - Desplazamiento vertical con una empresa destacada a la vez.
 - Botones nativos para seleccionar empresa y enlaces accesibles con teclado.
-- Vista en lista para movimiento reducido y pantallas de poca altura.
+- La misma galería en ventanas bajas, móviles verticales y móviles horizontales.
+- Con movimiento reducido, los cambios de tarjeta son instantáneos y se mantienen los controles.
+- Los detalles permiten desplazamiento si el texto excede el espacio disponible.
 - Contenido y enlaces disponibles cuando JavaScript está desactivado.
 
 ## Origen

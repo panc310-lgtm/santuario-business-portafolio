@@ -7,7 +7,7 @@
   const controls=[...document.querySelectorAll('[data-goto]')];
   const reduced=matchMedia('(prefers-reduced-motion: reduce)'),printing=matchMedia('print');
   const lifetime=new AbortController(),options={signal:lifetime.signal};
-  let motion=false,active=-1,travel=0,frame=0,resizeFrame=0,touch=null,suppressTouchUntil=0,layoutWidth=0,layoutHeight=0;
+  let motion=false,active=-1,travel=0,frame=0,resizeFrame=0,layoutFrame=0,touch=null,suppressTouchUntil=0,layoutWidth=0,layoutHeight=0;
   const clamp=(v,min=0,max=1)=>Math.min(max,Math.max(min,v));
   window.__portfolio={mode:'list',index:0,active:companies[0].id,progress:0,travel:0,companies};
   companies.forEach((company,i)=>{
@@ -74,9 +74,16 @@
     story.style.setProperty('--story-height',(layoutHeight+travel)+'px');
     if(!wasMotion){const current=active<0?0:active;active=-1;updateCopy(current);}
     links.forEach(link=>link.style.width=Math.min(deck.clientWidth,deck.clientHeight*1672/941)+'px');
-    window.__portfolio.mode='scroll';window.__portfolio.reason='';window.__portfolio.travel=travel;
+    window.__portfolio.mode='scroll';window.__portfolio.reason='';window.__portfolio.travel=travel;window.__portfolio.layoutHeight=layoutHeight;
     if(inStory){const top=scrollY+story.getBoundingClientRect().top;scrollTo({top:top+travel*previousProgress/(cards.length-1),behavior:'instant'});}
     paint();
+    // WebKit can settle viewport units one frame after the scene class changes.
+    // Recheck the measured stage instead of keeping the initial list's height.
+    cancelAnimationFrame(layoutFrame);
+    layoutFrame=requestAnimationFrame(()=>{
+      layoutFrame=0;
+      if(motion&&(stage.clientHeight!==layoutHeight||innerWidth!==layoutWidth))configure();
+    });
   }
   function resize(){
     cancelAnimationFrame(resizeFrame);resizeFrame=requestAnimationFrame(()=>{
@@ -99,9 +106,10 @@
   addEventListener('scroll',requestPaint,{...options,passive:true});addEventListener('resize',resize,options);
   reduced.addEventListener('change',configure,options);printing.addEventListener('change',configure,options);
   addEventListener('pagehide',event=>{
-    cancelAnimationFrame(frame);cancelAnimationFrame(resizeFrame);frame=0;resizeFrame=0;
+    cancelAnimationFrame(frame);cancelAnimationFrame(resizeFrame);cancelAnimationFrame(layoutFrame);frame=0;resizeFrame=0;layoutFrame=0;
     if(!event.persisted)lifetime.abort();
   },options);
   addEventListener('pageshow',event=>{if(event.persisted)configure();},options);
+  addEventListener('load',configure,options);
   updateCopy(0);configure();
 })();

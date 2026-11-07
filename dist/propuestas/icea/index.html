@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A1638">
 <meta name="robots" content="noindex, nofollow">
 <title>Propuesta web ICEA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,7 +32,7 @@ a{color:inherit}
 svg.sym{fill:currentColor}
 .foil-text{background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent}
 .caps{font-stretch:125%;text-transform:uppercase;letter-spacing:.3em;font-size:11px;font-weight:500}
-.frame{max-width:1320px;margin:0 auto;padding:clamp(10px,1.6vw,20px);display:grid;gap:clamp(10px,1.4vw,16px)}
+.frame{max-width:1320px;margin:0 auto;padding:clamp(10px,1.6vw,20px);padding-left:max(clamp(10px,1.6vw,20px),env(safe-area-inset-left));padding-right:max(clamp(10px,1.6vw,20px),env(safe-area-inset-right));padding-bottom:max(clamp(10px,1.6vw,20px),env(safe-area-inset-bottom));display:grid;gap:clamp(10px,1.4vw,16px)}
 
 /* papel índigo */
 .paper{position:relative;isolation:isolate}
@@ -88,7 +89,7 @@ nav.top{position:relative;z-index:2;display:flex;align-items:center;justify-cont
 .band h2 em{font-style:italic;font-weight:400;color:var(--gold)}
 .band-head p{font-size:15px;color:rgba(17,34,80,.72);max-width:36ch;justify-self:end}
 
-.box{background:var(--indigo);color:var(--parchment);border-radius:24px;overflow:hidden;box-shadow:0 34px 80px -34px rgba(17,34,80,.6)}
+.box{background:var(--indigo);color:var(--parchment);border-radius:24px;overflow:hidden;overflow:clip;box-shadow:0 34px 80px -34px rgba(17,34,80,.6)}
 .tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--line)}
 .tab{all:unset;cursor:pointer;position:relative;display:grid;gap:6px;padding:20px clamp(14px,2vw,26px) 18px;border-right:1px solid var(--line);color:var(--muted);transition:background .35s ease,color .35s ease}
 .tab:last-child{border-right:0}
@@ -104,8 +105,7 @@ nav.top{position:relative;z-index:2;display:flex;align-items:center;justify-cont
 .badge{position:absolute;top:16px;right:16px;font-size:9.5px;letter-spacing:.22em;font-stretch:125%;text-transform:uppercase;font-weight:600;padding:5px 10px;border-radius:999px;background:var(--foil);color:var(--indigo)}
 
 .panel{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(20px,4vw,60px);padding:clamp(20px,3.5vw,46px)}
-.panel.swap > *{animation:swap .6s cubic-bezier(.2,.8,.2,1) both}
-.panel.swap > *:nth-child(2){animation-delay:.08s}
+.panel.swap .b{animation:swap .6s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d,0)*60ms)}
 @keyframes swap{from{opacity:0;transform:translateY(14px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
 .lbl{color:var(--peach);font-size:10px}
 .price{font-weight:300;font-size:clamp(46px,6.2vw,90px);line-height:.98;letter-spacing:-.045em;font-variant-numeric:tabular-nums;margin:12px 0 6px}
@@ -178,6 +178,58 @@ nav.top{position:relative;z-index:2;display:flex;align-items:center;justify-cont
   .lockup{width:120px}
   .plaque{min-width:0;flex:1 1 140px}
 }
+
+/* ---------- MÓVIL · optimizado para iPhone 15 Pro Max (430 × 932) ---------- */
+.m{display:none}
+.dock{display:none}
+.hint{display:none}
+@media (max-width:620px){
+  .frame{padding:max(8px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) calc(96px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));gap:8px}
+  .hero,.band,.foot{border-radius:22px}
+  .d{display:none}.m{display:inline}
+  .btn{min-height:46px}
+  nav.top{padding-bottom:14px}
+  nav.top .btn{padding:10px 14px;font-size:13px;min-height:42px}
+  .lockup{width:118px}
+  .hero-inner{padding:16px 18px 20px;gap:22px}
+  .hero h1{font-size:42px;margin:18px 0 16px}
+  .lede{font-size:16px}
+  .hero .cta{flex-direction:column;align-items:stretch;gap:14px;margin-top:22px}
+  .hero .cta .btn{justify-content:center}
+  .hero .cta .valid{text-align:center}
+  .watermark{display:none}
+  .stage{height:340px;margin:-6px -18px;pointer-events:auto;touch-action:pan-y;cursor:grab}
+  .hint{display:block;position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:9px;color:var(--muted);pointer-events:none}
+  .plaques{display:grid;grid-template-columns:1fr 1fr;width:100%;gap:8px}
+  .plaque{min-width:0;padding:12px 14px}
+  .plaque:nth-child(3){grid-column:1/-1}
+  .plaque b{font-size:30px}
+  .band{padding:30px 12px 12px}
+  .band .band-head{padding:0 6px;margin-bottom:22px}
+  .box{border-radius:20px}
+  .tabs{position:sticky;top:env(safe-area-inset-top);z-index:6;grid-template-columns:repeat(3,minmax(0,1fr));background:rgba(17,34,80,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .tab{border-right:1px solid var(--line);border-bottom:0;padding:12px 10px 11px;gap:3px;min-height:66px}
+  .tab:last-child{border-right:0}
+  .tab .caps{font-size:8.5px;letter-spacing:.2em}
+  .tab .nm{font-size:14.5px;line-height:1.15}
+  .tab .pr{font-size:12px}
+  .panel{display:flex;flex-direction:column;gap:0;padding:24px 16px 20px}
+  .panel .col{display:contents}
+  .b-price{order:1}.b-inc{order:2;margin-top:28px}.b-extra{order:3}.b-facts{order:4}.b-cta{order:5}.b-refs{order:6}
+  .price{font-size:54px}
+  .hook{font-size:14.5px}
+  .b-cta .btn{flex:1 1 100%;justify-content:center}
+  .refs a{padding:10px 14px}
+  .foot{padding:28px 18px 0}
+  .foot .add li{flex-direction:column;gap:2px}
+  .foot .add li span:last-child{color:var(--peach)}
+  .legal{flex-direction:column;gap:4px}
+  .dock{display:flex;position:fixed;z-index:30;left:max(10px,env(safe-area-inset-left));right:max(10px,env(safe-area-inset-right));bottom:calc(10px + env(safe-area-inset-bottom));align-items:center;justify-content:space-between;gap:12px;padding:10px 10px 10px 16px;border-radius:18px;background:rgba(10,22,56,.86);border:1px solid var(--line);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 18px 40px -14px rgba(0,0,0,.65);transform:translateY(calc(100% + 40px));transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+  .dock.show{transform:none}
+  .dock .caps{font-size:8.5px;color:var(--peach);letter-spacing:.22em;display:block;margin-bottom:3px}
+  .dock b{font-weight:400;font-size:15px;letter-spacing:-.01em}
+  .dock .btn{min-height:44px;padding:11px 16px}
+}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -207,7 +259,7 @@ nav.top{position:relative;z-index:2;display:flex;align-items:center;justify-cont
           <a href="#calendario">Calendario</a>
           <a href="#condiciones">Condiciones</a>
         </div>
-        <a class="btn btn-line js-wa" data-op="3" href="#opciones">Iniciar la opción 3 <span class="arr">↗</span></a>
+        <a class="btn btn-line js-wa" data-op="3" href="#opciones"><span class="d">Iniciar la opción 3</span><span class="m">Opción 3</span> <span class="arr">↗</span></a>
       </nav>
 
       <div class="hero-mid">
@@ -224,6 +276,7 @@ nav.top{position:relative;z-index:2;display:flex;align-items:center;justify-cont
 
       <div class="stage" id="stage" aria-hidden="true">
         <svg class="fallback" viewBox="0 0 850 853" style="fill:url(#foil)"><use href="#s-emblem"/></svg>
+        <span class="hint caps">Deslice para girar</span>
       </div>
 
       <div class="hero-bottom">
@@ -297,6 +350,11 @@ nav.top{position:relative;z-index:2;display:flex;align-items:center;justify-cont
     </div>
     <div class="legal"><span id="firma">Propuesta preparada para ICEA · Instituto de Ciencias Estéticas Avanzadas</span><span>© 2026</span></div>
   </footer>
+</div>
+
+<div class="dock" id="dock" aria-hidden="true">
+  <div><span class="caps">Opción 3 · Inmersiva 3D</span><b>Empiece con $2.000.000</b></div>
+  <a class="btn btn-foil js-wa" data-op="3" href="#opciones" tabindex="-1">Iniciar <span class="arr">↗</span></a>
 </div>
 
 <script>
@@ -378,36 +436,46 @@ function render(op){
        <button class="btn btn-foil" type="button" data-goto="3">Ver la opción 3</button>`;
   const panel = document.getElementById("panel");
   panel.innerHTML = `
-    <div>
-      <span class="lbl caps">Opción ${o.n} · ${o.nombre}</span>
-      <div class="price"><small>COP</small>${fmt(o.precio)}</div>
-      <span class="note">Valor total</span>
-      ${o.hook?`<div class="hook">${o.hook}</div>`:""}
-      <div class="facts">
+    <div class="col">
+      <div class="b b-price" style="--d:0">
+        <span class="lbl caps">Opción ${o.n} · ${o.nombre}</span>
+        <div class="price"><small>COP</small>${fmt(o.precio)}</div>
+        <span class="note">Valor total</span>
+        ${o.hook?`<div class="hook">${o.hook}</div>`:""}
+      </div>
+      <div class="b b-facts facts" style="--d:3">
         ${pagos}
         <div><span>Entrega</span><span>${o.tiempo}</span></div>
         <div><span>Revisiones</span><span>${o.revisiones}</span></div>
         <div><span>Soporte después de publicar</span><span>${o.soporte}</span></div>
       </div>
-      <div class="cta">${cta}</div>
+      <div class="b b-cta cta" style="--d:4">${cta}</div>
     </div>
-    <div>
-      <span class="lbl caps">Incluye</span>
-      <ul class="inc">${inc}</ul>
-      ${extra}
-      ${refs}
+    <div class="col">
+      <div class="b b-inc" style="--d:1"><span class="lbl caps">Incluye</span><ul class="inc">${inc}</ul></div>
+      <div class="b b-extra" style="--d:2">${extra}</div>
+      <div class="b b-refs" style="--d:5">${refs}</div>
     </div>`;
   panel.setAttribute("aria-labelledby","tab-"+op);
   panel.classList.remove("swap"); void panel.offsetWidth; panel.classList.add("swap");
   panel.querySelectorAll("[data-goto]").forEach(b=>b.addEventListener("click",()=>select(b.dataset.goto,true)));
 }
 
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const tabs = [...document.querySelectorAll(".tab")];
 function select(op, focus){
   op = String(op);
   tabs.forEach(t=>{const on=t.dataset.op===op;t.setAttribute("aria-selected",on);t.tabIndex=on?0:-1;if(on&&focus)t.focus();});
   render(op);
   window.dispatchEvent(new CustomEvent("icea:option",{detail:op}));
+  if(window.innerWidth<=620){
+    const r=document.querySelector(".box").getBoundingClientRect();
+    if(r.top<0) window.scrollTo({top:window.scrollY+r.top-4,behavior:reduceMotion?"auto":"smooth"});
+  }
+}
+function goTo(op){
+  select(op);
+  document.querySelector(".box").scrollIntoView({behavior:reduceMotion?"auto":"smooth",block:"start"});
 }
 tabs.forEach((t,i)=>{
   t.addEventListener("click",()=>select(t.dataset.op));
@@ -419,7 +487,17 @@ tabs.forEach((t,i)=>{
     }
   });
 });
-document.querySelectorAll("a.js-wa").forEach(a=>{ if(WHATSAPP){a.href=waLink(a.dataset.op);a.target="_blank";a.rel="noopener";} });
+document.querySelectorAll("a.js-wa").forEach(a=>{
+  if(WHATSAPP){a.href=waLink(a.dataset.op);a.target="_blank";a.rel="noopener";}
+  else a.addEventListener("click",e=>{e.preventDefault();goTo(a.dataset.op);});
+});
+/* barra inferior en móvil: aparece al salir de la portada y se oculta en el cierre */
+(()=>{
+  const dock=document.getElementById("dock"); let heroIn=true, footIn=false;
+  const upd=()=>dock.classList.toggle("show",!heroIn&&!footIn);
+  new IntersectionObserver(([e])=>{heroIn=e.isIntersecting;upd();},{threshold:0.05}).observe(document.querySelector(".hero"));
+  new IntersectionObserver(([e])=>{footIn=e.isIntersecting;upd();},{threshold:0}).observe(document.querySelector(".foot .foot-grid"));
+})();
 if(WHATSAPP){document.getElementById("contacto-wa").textContent="WhatsApp: +"+WHATSAPP;}
 if(AGENCIA){document.getElementById("firma").textContent=`Propuesta de ${AGENCIA} para ICEA · Instituto de Ciencias Estéticas Avanzadas`;}
 render("3");
@@ -493,7 +571,12 @@ function layout(){
 new ResizeObserver(layout).observe(stage); layout();
 
 let mx=0,my=0,rx=0,ry=0,spin=0,spinT=0,visible=true;
-addEventListener("pointermove",e=>{mx=e.clientX/innerWidth*2-1;my=e.clientY/innerHeight*2-1;},{passive:true});
+addEventListener("pointermove",e=>{ if(e.pointerType!=="mouse") return; mx=e.clientX/innerWidth*2-1;my=e.clientY/innerHeight*2-1;},{passive:true});
+const coarse = matchMedia("(pointer: coarse)").matches;
+let user=0, dragging=false, sx=0, su=0;
+stage.addEventListener("pointerdown",e=>{dragging=true;sx=e.clientX;su=user;});
+stage.addEventListener("pointermove",e=>{ if(dragging) user = su + (e.clientX-sx)*0.012; });
+["pointerup","pointercancel","pointerleave"].forEach(ev=>stage.addEventListener(ev,()=>{dragging=false;}));
 addEventListener("icea:option",()=>{ if(!reduce) spinT += Math.PI*2; });
 new IntersectionObserver(([en])=>{visible=en.isIntersecting;},{threshold:0}).observe(stage);
 
@@ -501,10 +584,12 @@ const clock = new THREE.Clock();
 function tick(){
   requestAnimationFrame(tick);
   if(!visible) return;
-  const t = clock.getElapsedTime();
+  const dt = Math.min(clock.getDelta(), .05);
+  const t = clock.elapsedTime;
+  if(coarse && !dragging && !reduce) user += dt*.35;
   rx += (mx*.6 - rx)*.06; ry += (my*.35 - ry)*.06;
   spin += (spinT - spin)*.04;
-  pivot.rotation.y = -.28 + rx + spin + (reduce?0:Math.sin(t*.45)*.14);
+  pivot.rotation.y = -.28 + rx + spin + user + (reduce?0:Math.sin(t*.45)*.14);
   pivot.rotation.x = .05 + ry*.6;
   pivot.position.y = (pivot.userData.baseY||0) + (reduce?0:Math.sin(t*1.1)*.05);
   renderer.render(scene,camera);
